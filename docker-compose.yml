@@ -1,0 +1,14 @@
+version: '3.11'
+
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./df_system_stats.csv:/app/df_system_stats.csv
+      - ./system_stats_24h.png:/app/system_stats_24h.png
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

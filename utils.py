@@ -1,7 +1,7 @@
 """Module for getting system information including memory usage and processor details."""
 
-import wmi
-import psutil
+import wmi  # pylint: disable=unused-import
+import psutil  # pylint: disable=unused-import
 
 
 def get_memory_usage():
