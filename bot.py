@@ -170,7 +170,11 @@ async def send_periodic_message():
             df_system_stats = pd.read_csv(DF_PATH)
             generate_stats_graph(df_system_stats)
             photo = FSInputFile("system_stats_24h.png")
-            message = await bot.send_photo(USER_ID, photo, caption=generate_message_text(df_system_stats))
+            message = await bot.send_photo(
+                USER_ID,
+                photo,
+                caption=generate_message_text(df_system_stats)
+            )
             last_message_id = message.message_id
             logging.info('Сообщение отправлено пользователю %s, ID: %s', USER_ID, last_message_id)
         except Exception as error:  # pylint: disable=broad-exception-caught

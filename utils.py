@@ -24,9 +24,10 @@ def get_processors_info():
 
     Returns:
         list: Processors info and temperatures in the following format:
-            [processor1_name: str, processor1_load: int, processor1_frequency: int, processor1_temp: float,
-             processor2_name: str, processor2_load: int, processor2_frequency: int, processor2_temp: float,
-             motherboard_temp: float]
+            [processor1_name: str, processor1_load: int, processor1_frequency: int,
+             processor1_temp: float, processor2_name: str, processor2_load: int,
+             processor2_frequency: int, processor2_temp: float, motherboard_temp: float
+            ]
     """
     wmi_connection = wmi.WMI(namespace="root\\OpenHardwareMonitor")
     processors = wmi.WMI().Win32_Processor()
