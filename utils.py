@@ -1,3 +1,5 @@
+"""Module for getting system information including memory usage and processor details."""
+
 import wmi
 import psutil
 
@@ -32,6 +34,7 @@ def get_processors_info():
     cpu_1_cores_temp = []
     cpu_2_cores_temp = []
     motherboard_temp = []
+
     for sensor in sensors:
         if sensor.Identifier.startswith('/intelcpu/0/temperature'):
             cpu_1_cores_temp.append(sensor.Value)
@@ -39,9 +42,11 @@ def get_processors_info():
             cpu_2_cores_temp.append(sensor.Value)
         elif sensor.Identifier.startswith('/lpc/nct6779d/temperature'):
             motherboard_temp.append(sensor.Value)
-    avg_cpu1_temp = round(sum(cpu_1_cores_temp) / len(cpu_1_cores_temp), 1)
-    avg_cpu2_temp = round(sum(cpu_2_cores_temp) / len(cpu_2_cores_temp), 1)
-    avg_motherboard_temp = round(sum(motherboard_temp) / len(motherboard_temp), 1)
+
+    avg_cpu1_temp = round(sum(cpu_1_cores_temp) / len(cpu_1_cores_temp), 1) if cpu_1_cores_temp else 0
+    avg_cpu2_temp = round(sum(cpu_2_cores_temp) / len(cpu_2_cores_temp), 1) if cpu_2_cores_temp else 0
+    avg_motherboard_temp = round(sum(motherboard_temp) / len(motherboard_temp), 1) if motherboard_temp else 0
+
     return [
         processors[0].Name.strip(),
         processors[0].LoadPercentage,
