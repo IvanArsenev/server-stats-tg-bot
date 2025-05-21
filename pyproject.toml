@@ -1,0 +1,21 @@
+[project]
+name = "server-stats-tg-bot"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "IvanArsenev",email = "arsenev.ivan00@bk.ru"}
+]
+readme = "README.md"
+requires-python = "3.11"
+dependencies = [
+    "aiogram (>=3.20.0.post0,<4.0.0)",
+    "matplotlib (>=3.10.3,<4.0.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "wmi (>=1.5.1,<2.0.0)",
+    "psutil (>=7.0.0,<8.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
