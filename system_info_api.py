@@ -1,3 +1,6 @@
+"""API for getting information about the system: memory usage and processor characteristics."""
+
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 import wmi
@@ -6,13 +9,15 @@ import psutil
 app = FastAPI()
 
 
-class MemoryUsageResponse(BaseModel):
+class MemoryUsageResponse(BaseModel):  # pylint: disable=too-few-public-methods
+    """Response model with information about RAM usage."""
     used_gb: float
     total_gb: float
     percent: float
 
 
-class ProcessorInfoResponse(BaseModel):
+class ProcessorInfoResponse(BaseModel):  # pylint: disable=too-few-public-methods
+    """Response model with information about processors and component temperatures."""
     processor1_name: str
     processor1_load: int
     processor1_frequency: int
@@ -26,6 +31,7 @@ class ProcessorInfoResponse(BaseModel):
 
 @app.get("/memory", response_model=MemoryUsageResponse)
 def memory_usage():
+    """Returns RAM usage in gigabytes and usage percentage."""
     mem = psutil.virtual_memory()
     return {
         "used_gb": round(mem.used / (1024 ** 3), 2),
@@ -36,6 +42,7 @@ def memory_usage():
 
 @app.get("/processors", response_model=ProcessorInfoResponse)
 def processors_info():
+    """Returns information about two processors and the temperature of the motherboard."""
     wmi_connection = wmi.WMI(namespace="root\\OpenHardwareMonitor")
     processors = wmi.WMI().Win32_Processor()
     sensors = wmi_connection.Sensor()
