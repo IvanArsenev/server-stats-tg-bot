@@ -1,3 +1,5 @@
+"""Module to get stats from API."""
+
 import requests
 
 def get_memory_usage_from_api():
@@ -26,7 +28,7 @@ def get_processors_info_from_api():
     response.raise_for_status()
     data = response.json()
     return (
-        data["processor1_name"], data["processor1_load"], data["processor1_frequency"], data["processor1_temp"],
-        data["processor2_name"], data["processor2_load"], data["processor2_frequency"], data["processor2_temp"],
-        data["motherboard_temp"]
+        data["processor1_name"], data["processor1_load"], data["processor1_frequency"],
+        data["processor1_temp"], data["processor2_name"], data["processor2_load"],
+        data["processor2_frequency"], data["processor2_temp"], data["motherboard_temp"]
     )
