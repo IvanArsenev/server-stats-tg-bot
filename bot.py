@@ -11,8 +11,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.types import FSInputFile
 
 from config import BOT_TOKEN, USER_ID, DF_PATH
-from utils import get_memory_usage, get_processors_info
-
+from utils import get_memory_usage_from_api, get_processors_info_from_api
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 logging.basicConfig(level=logging.INFO)
@@ -111,12 +110,12 @@ def generate_stats_graph(df_system_stats):
 
 def generate_message_text(df_system_stats):
     """Generate a message text with current system stats and update CSV."""
-    used_gb, total_gb, percent = get_memory_usage()
+    used_gb, total_gb, percent = get_memory_usage_from_api()
     (
         processor_1_name, processor_1_load, processor_1_frequency, processor_1_temp,
         processor_2_name, processor_2_load, processor_2_frequency, processor_2_temp,
         motherboard_temp
-    ) = get_processors_info()
+    ) = get_processors_info_from_api()
 
     record = {
         'timestamp': datetime.now(),

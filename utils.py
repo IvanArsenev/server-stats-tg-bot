@@ -1,38 +1,32 @@
-"""Module for getting system information including memory usage and processor details."""
+import requests
 
-import wmi  # pylint: disable=unused-import
-import psutil  # pylint: disable=unused-import
-
-
-def get_memory_usage():
+def get_memory_usage_from_api():
     """
-    Get system memory usage information.
-
+    Получить информацию об использовании памяти через API.
+    
     Returns:
-        tuple: Used memory in GB: float, total memory in GB: float, usage percentage: float
+        tuple: used_gb, total_gb, percent
     """
-    return 50.5, 60.5, 70.5
+    response = requests.get("http://localhost:8000/memory")
+    response.raise_for_status()
+    data = response.json()
+    return data["used_gb"], data["total_gb"], data["percent"]
 
 
-def get_processors_info():
+def get_processors_info_from_api():
     """
-    Get processors and temperature information.
-
+    Получить информацию о процессорах и температуре через API.
+    
     Returns:
-        list: Processors info and temperatures in the following format:
-            [processor1_name: str, processor1_load: int, processor1_frequency: int,
-             processor1_temp: float, processor2_name: str, processor2_load: int,
-             processor2_frequency: int, processor2_temp: float, motherboard_temp: float
-            ]
+        tuple: processor_1_name, processor_1_load, processor_1_frequency, processor_1_temp,
+               processor_2_name, processor_2_load, processor_2_frequency, processor_2_temp,
+               motherboard_temp
     """
-    return [
-        'testtesttesttest',
-        50,
-        3000,
-        50.5,
-        'testtesttesttest',
-        50,
-        3000,
-        50.5,
-        50.5
-    ]
+    response = requests.get("http://localhost:8000/processors")
+    response.raise_for_status()
+    data = response.json()
+    return (
+        data["processor1_name"], data["processor1_load"], data["processor1_frequency"], data["processor1_temp"],
+        data["processor2_name"], data["processor2_load"], data["processor2_frequency"], data["processor2_temp"],
+        data["motherboard_temp"]
+    )
