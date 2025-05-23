@@ -59,9 +59,18 @@ def processors_info():
         elif sensor.Identifier.startswith('/lpc/nct6779d/temperature'):
             motherboard_temp.append(sensor.Value)
 
-    avg_cpu1_temp = round(sum(cpu_1_cores_temp) / len(cpu_1_cores_temp), 1) if cpu_1_cores_temp else None
-    avg_cpu2_temp = round(sum(cpu_2_cores_temp) / len(cpu_2_cores_temp), 1) if cpu_2_cores_temp else None
-    avg_motherboard_temp = round(sum(motherboard_temp) / len(motherboard_temp), 1) if motherboard_temp else None
+    avg_cpu1_temp = (
+        round(sum(cpu_1_cores_temp) / len(cpu_1_cores_temp), 1)
+        if cpu_1_cores_temp else None
+    )
+    avg_cpu2_temp = (
+        round(sum(cpu_2_cores_temp) / len(cpu_2_cores_temp), 1)
+        if cpu_2_cores_temp else None
+    )
+    avg_motherboard_temp = (
+        round(sum(motherboard_temp) / len(motherboard_temp), 1)
+        if motherboard_temp else None
+    )
 
     return {
         "processor1_name": processors[0].Name.strip(),
