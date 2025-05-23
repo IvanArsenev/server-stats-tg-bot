@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import wmi
 import psutil
+import uvicorn
 
 app = FastAPI()
 
@@ -83,3 +84,6 @@ def processors_info():
         "processor2_temp": avg_cpu2_temp,
         "motherboard_temp": avg_motherboard_temp
     }
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
