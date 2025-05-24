@@ -22,15 +22,15 @@ CREATE `config.py`
     BOT_TOKEN = ''
     USER_ID = 0
     DF_PATH = 'df_system_stats.csv'
-    API_HOST = '127.0.0.1'
-    API_PORT = 2403
+    API_HOST = '192.168.0.*'
+    API_PORT = 1111
 ```
 
 ```shell
   python .\system_info_api.py
 ```
 
-### NEW TERMINAL
+### IN NEW TERMINAL
 
 ```shell
   cd .\server-stats-tg-bot\
