@@ -1,45 +1,101 @@
-```shell
-  git clone https://github.com/IvanArsenev/server-stats-tg-bot.git
-```
+# 🚀 Server Stats Telegram Bot
 
-```shell
-  cd .\server-stats-tg-bot\
-```
+A Telegram bot that periodically sends system statistics with visualizations based on data gathered from a local API. Tracks memory usage, CPU load, temperature, and frequency for two processors and motherboard. 🖥️🔥
 
-```shell
-  python3.11 -m venv .venv
-```
+---
 
-```shell
-  .\.venv\Scripts\activate
-```
+## ✨ Features
 
-```shell
-  pip install pywin32==310 wmi==1.5.1 uvicorn==0.34.2 fastapi==0.115.12 psutil==7.0.0
-```
-CREATE `config.py`
+* 📊 Collects system stats via a FastAPI service  
+* 💾 Stores stats history in CSV  
+* 📈 Generates and sends hourly graphs via Telegram  
+* 🔴🟢 Visual status indicators (emojis) for load and temperature  
+* 🖥️⚙️ Supports dual-processor systems
+
+---
+
+## 🚀 Easy Start
+
+Create a `config.py` file with your configuration:
+
 ```python
-    BOT_TOKEN = ''
-    USER_ID = 0
-    DF_PATH = 'df_system_stats.csv'
-    API_HOST = '192.168.0.*'
-    API_PORT = 1111
+BOT_TOKEN = ''                   # Telegram bot token
+USER_ID = 0                      # Telegram user ID to send messages to
+DF_PATH = 'df_system_stats.csv'  # Path to store stats CSV
+API_HOST = '192.168.0.*'         # Host IP for API server
+API_PORT = 1111                  # Port for API server
+````
+
+Just run the provided batch script:
+
+```bat
+start.bat
 ```
 
-```shell
-  python .\system_info_api.py
-```
+---
 
-### IN NEW TERMINAL
+## 🛠️ Manual Setup
 
-```shell
-  cd .\server-stats-tg-bot\
-```
+1. Clone the repository:
 
-```shell
-  .\.venv\Scripts\activate
-```
+   ```shell
+   git clone https://github.com/IvanArsenev/server-stats-tg-bot.git
+   cd server-stats-tg-bot
+   ```
 
-```shell
-  docker-compose up -d --build
-```
+2. Create and activate a Python virtual environment (tested with Python 3.11):
+
+   ```shell
+   python3.11 -m venv .venv
+   .\.venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+
+   ```shell
+   pip install pywin32==310 wmi==1.5.1 uvicorn==0.34.2 fastapi==0.115.12 psutil==7.0.0
+   ```
+
+4. Create a `config.py` file with your configuration:
+
+   ```python
+   BOT_TOKEN = ''                   # Telegram bot token
+   USER_ID = 0                      # Telegram user ID to send messages to
+   DF_PATH = 'df_system_stats.csv'  # Path to store stats CSV
+   API_HOST = '192.168.0.*'         # Host IP for API server
+   API_PORT = 1111                  # Port for API server
+   ```
+
+5. Run the system info API:
+
+   ```shell
+   python .\system_info_api.py
+   ```
+
+6. In a new terminal, activate your environment again and start the bot with Docker Compose:
+
+   ```shell
+   cd .\server-stats-tg-bot
+   .\.venv\Scripts\activate
+   docker-compose up -d --build
+   ```
+
+---
+
+## ⚙️ How It Works
+
+* `system_info_api.py` runs a FastAPI server exposing endpoints to fetch memory and CPU stats using WMI and psutil.
+* `bot.py` fetches these stats hourly, updates a CSV log, generates graphs with Matplotlib, and sends a photo with stats summary to the Telegram user.
+* `utils.py` contains helper functions for calling the API.
+* Stats include memory usage, processor loads, frequencies, and temperatures, shown with intuitive colored emoji statuses. 📉🔥
+
+---
+
+## 📝 Notes
+
+* Requires Windows due to WMI and hardware monitoring dependencies. 🪟
+* Tested on Python 3.11. 🐍
+* Make sure your Telegram bot token and user ID are correctly configured.
+* The bot deletes previous messages before sending new updates to keep the chat clean. 🧹
+
+---
